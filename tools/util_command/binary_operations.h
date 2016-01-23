@@ -2,11 +2,11 @@
 #define BINARY_OPERATIONS
 #include <stdio.h>
 #include <stdlib.h>
-typedef double long         u16;
-typedef unsigned long	    u08;
-typedef unsigned            u04;
-typedef unsigned short int  u02;
-typedef unsigned char       u01;
+
+typedef unsigned long	    u64;
+typedef unsigned            u32;
+typedef unsigned short int  u16;
+typedef unsigned char       u08;
 
 void print_binary (u02);
 void print_with_indent(int, char*);

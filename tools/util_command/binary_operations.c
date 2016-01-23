@@ -4,12 +4,11 @@
 #define A 0xFE
 
 void
-print_binary (u02 n){ 
+print_binary (u16 n){ 
  
     int i;
 /*    printf ("la taile de n est de %d bits soit %d bytes\n",(sizeof(n)*8),sizeof(n)); */
     printf ("la valeur binaire est: ");
-    n = (double)n; 
 
     for(i = sizeof(n)*(8)-1; i >= 0; i--){
 	if(i%4==3)
@@ -42,9 +41,9 @@ repeat_char(int i){
 void
 help_binary_operations (void){
  
-    u02 a=0xFF00;
-    u02 b=0x1111;
-    u02 c=0x0000;
+    u16 a=0xFF00;
+    u16 b=0x1111;
+    u16 c=0x0000;
    
     repeat_char(50);
     printf("a:\t"); print_binary(a);
