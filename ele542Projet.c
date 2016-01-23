@@ -1,40 +1,72 @@
-/*
-    Title:    AVR-GCC test program #1 for the STK200 eva board
-    Author:   Volker Oth
-    Date:     4/1999
-    Purpose:  Flashes the LEDs on Port B with a hard coded delay loop
-    needed
-    Software: AVR-GCC
-    needed
-    Hardware: ATS90S8515/8535/2313/mega on STK200/STK300 board
-    Note:     To contact me, mail to
-                  volkeroth@gmx.de
-              You might find more AVR related stuff at my homepage:
-                  http://members.xoom.com/volkeroth
-*/
-
-#include <avr/io.h>
+#include "uart.h"
+#include <avr/pgmspace.h>
 
 
-typedef unsigned char  u08;
+/*	DEBUG	*/
+#define START_DEBUG 0xFE
+#define END_DEBUG 0xFF
 
-int main( void )
+/* COMMAND	*/
+#define NORMAL_COMMAND 	0xF1
+#define FORCED_STOP		0xF0
+
+#define PI 3.1415
+
+
+
+void deg_to_rad(int deg){
+
+	float res;
+
+}
+
+
+int main(void)
 {
-   u08 led, i, j, k;
+    u08 data;
+	u08 speed;
+	u08 angle;
+    /* Initialise UART */
+    UART_Init();
+	
+	data = 'c';
+	UART_SendByte(START_DEBUG);
+	UART_SendByte(data);
+	UART_SendByte(END_DEBUG);
 
-   DDRB = 0xff;                  /* use all pins on PortB for output */
+	speed = 120;
+	angle = 90;
 
-   led = 1;                      /* init variable representing the LED state */
+	UART_SendByte(NORMAL_COMMAND);
+	UART_SendByte(0x56);
+	UART_SendByte(0x56);
 
-   for (;;) {
-      PORTB = ~led;              /* invert the output since a zero means: LED on */
-      led <<= 1;                 /* move to next LED */
-      
-      if (!led)                  /* overflow: start with Port B0 again */
-         led = 1;
-      
-      for (i=0; i<255; i++)      /* outer delay loop */
-         for(j=0; j<255;j++)     /* inner delay loop */
-            k++;                 /* just do something - could also be a NOP */
-   }
+    PRINT("Hello World !");
+    EOL();
+
+    for (;;) {  /* loop forever */
+        UART_SendByte(START_DEBUG);
+			data=UART_ReceiveByte();
+			UART_Printfu16(data);
+				UART_SendByte(END_DEBUG);
+		/*	if(data==FORCED_STOP){
+		UART_SendByte(START_DEBUG);
+				UART_SendByte(START_DEBUG);
+				UART_Printfu08(data);
+			/*	UART_SendByte(data);
+				UART_SendByte(END_DEBUG);
+			}
+*/
+		/*PRINT("Press any key...");
+        EOL();
+    
+        data = UART_ReceiveByte();
+    
+        PRINT("You pressed '");
+        UART_SendByte(data);
+        PRINT("' which is 0x");
+        UART_Printfu08(data);
+        PRINT(" in hexadecimal.");
+        EOL();*/
+    }
 }
