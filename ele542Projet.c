@@ -1,72 +1,85 @@
+
+
 #include "uart.h"
 #include <avr/pgmspace.h>
 
-
-/*	DEBUG	*/
-#define START_DEBUG 0xFE
-#define END_DEBUG 0xFF
+#include <stdlib.h> 
+ 
 
 /* COMMAND	*/
-#define NORMAL_COMMAND 	0xF1
-#define FORCED_STOP		0xF0
-
-#define PI 3.1415
-
-
-
-void deg_to_rad(int deg){
-
-	float res;
-
-}
+const u08 NORMAL_COMMAND = 0xF1;
+const u08 FORCED_STOP	=	0xF0;
 
 
 int main(void)
 {
     u08 data;
-	u08 speed;
-	u08 angle;
+	u08 p_vitesse=0,vitesse=0;
+
+
+	u08 p_angle=0,angle=0;
+	short etat;
+	etat = 0;
+	
+	char str[30];;
     /* Initialise UART */
     UART_Init();
 	
-	data = 'c';
-	UART_SendByte(START_DEBUG);
-	UART_SendByte(data);
-	UART_SendByte(END_DEBUG);
+	for (;;) { 
+	printf("hhhhhhhhhhhhhhhhhhhhhhhhhhh"); /* loop forever */
+	//sleep(1000);
+		data = UART_ReceiveByte();
+				//	send_debugu08(data);
+				//	for(int i=0;i<40000;++i){}
+				//	sprintf(str, "%d", data );
+					
+				/*	send_debug(str,30);
+					for( int j=29;j>=0;j--)
+					{
+						send_debugu08(str[j]);
+					}*/
+		switch(etat)
+		{
+			case 0:
+				if (data == NORMAL_COMMAND)
+				{
+					//send_debug("debug: etat = 0: data: ", 17);
+					//send_debugu08(data);
+					etat = 1;
+				}
+				break;
+			case 1:
 
-	speed = 120;
-	angle = 90;
+				vitesse = data;
+				if (vitesse != p_vitesse) {
+					UART_SendByte(vitesse);
+					
+				
+					send_debug(" debug: etat = 1; vitesse= ", 28);
+					
+					int vit;
+					scanf(vitesse, "%vit", &vit);
+					send_debugu08(vit);
+					//send_debug_int(atoi(vitesse));
+					
+					p_vitesse = vitesse;
+				}
+				etat = 2;
+				break;
+			case 2:
 
-	UART_SendByte(NORMAL_COMMAND);
-	UART_SendByte(0x56);
-	UART_SendByte(0x56);
+				if(angle != p_angle)
+				{
+					angle = data;
+					UART_SendByte(angle);
+					send_debug(" debug: etat = 2; angle= ", 25);
+					send_debugu08(angle);
+					p_angle = angle;
+				}
+				etat = 0;
+				break;
 
-    PRINT("Hello World !");
-    EOL();
-
-    for (;;) {  /* loop forever */
-        UART_SendByte(START_DEBUG);
-			data=UART_ReceiveByte();
-			UART_Printfu16(data);
-				UART_SendByte(END_DEBUG);
-		/*	if(data==FORCED_STOP){
-		UART_SendByte(START_DEBUG);
-				UART_SendByte(START_DEBUG);
-				UART_Printfu08(data);
-			/*	UART_SendByte(data);
-				UART_SendByte(END_DEBUG);
-			}
-*/
-		/*PRINT("Press any key...");
-        EOL();
-    
-        data = UART_ReceiveByte();
-    
-        PRINT("You pressed '");
-        UART_SendByte(data);
-        PRINT("' which is 0x");
-        UART_Printfu08(data);
-        PRINT(" in hexadecimal.");
-        EOL();*/
+		}
+	
     }
 }

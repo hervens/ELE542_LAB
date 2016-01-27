@@ -29,9 +29,9 @@ extern void UART_PrintfEndOfLine(void);
 extern void UART_Printfu08      (u08 Data);
 extern void UART_Printfu16      (u16 Data);
 extern void UART_Init           (void);
-
+extern void send_debug(char *msg, short size);
+extern void send_debug_int(int c);
 /* Macros */
 #define PRINT(string) (UART_PrintfProgStr((PGM_P) string))
 #define EOL           UART_PrintfEndOfLine
 #endif
-
