@@ -1,4 +1,4 @@
-uart.o: ../uart.c ../uart.h \
+adc.o: ../adc.c ../adc.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/io.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/sfr_defs.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/inttypes.h \
@@ -10,13 +10,13 @@ uart.o: ../uart.c ../uart.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h \
-  c:/winavr-20100110/lib/gcc/../../avr/include/avr/signal.h \
-  c:/winavr-20100110/lib/gcc/../../avr/include/avr/pgmspace.h \
+  ../globals.h c:/winavr-20100110/lib/gcc/../../avr/include/stdlib.h \
   c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stddef.h \
   c:/winavr-20100110/lib/gcc/../../avr/include/stdio.h \
-  c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdarg.h
+  c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdarg.h \
+  c:/winavr-20100110/lib/gcc/../../avr/include/avr/wdt.h ../timer.h
 
-../uart.h:
+../adc.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/io.h:
 
@@ -40,12 +40,16 @@ c:/winavr-20100110/lib/gcc/../../avr/include/avr/lock.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/avr/interrupt.h:
 
-c:/winavr-20100110/lib/gcc/../../avr/include/avr/signal.h:
+../globals.h:
 
-c:/winavr-20100110/lib/gcc/../../avr/include/avr/pgmspace.h:
+c:/winavr-20100110/lib/gcc/../../avr/include/stdlib.h:
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stddef.h:
 
 c:/winavr-20100110/lib/gcc/../../avr/include/stdio.h:
 
 c:\winavr-20100110\bin\../lib/gcc/avr/4.3.3/include/stdarg.h:
+
+c:/winavr-20100110/lib/gcc/../../avr/include/avr/wdt.h:
+
+../timer.h:

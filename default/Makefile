@@ -37,7 +37,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Objects that must be built in order to link
-OBJECTS = ele542Projet.o uart.o 
+OBJECTS = ele542Projet.o moteur.o adc.o timer.o uart2.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -47,7 +47,16 @@ all: $(TARGET) ele542Projet.hex ele542Projet.eep ele542Projet.lss## Compile
 ele542Projet.o: ../ele542Projet.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
-uart.o: ../uart.c
+moteur.o: ../moteur.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+adc.o: ../adc.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+timer.o: ../timer.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+uart2.o: ../uart2.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link
